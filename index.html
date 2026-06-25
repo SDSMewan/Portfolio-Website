@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alex Cipher | Cybersecurity Student</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0A0F1E;
+    --bg2: #0F1629;
+    --card: #111827;
+    --border: #1E2D45;
+    --green: #00FF9C;
+    --blue: #0A84FF;
+    --purple: #8B5CF6;
+    --text: #E8EDF5;
+    --muted: #64748B;
+    --mono: 'Share Tech Mono', monospace;
+    --sans: 'Inter', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* Scanline overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px);
+    pointer-events: none;
+    z-index: 1000;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: rgba(10,15,30,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: var(--mono);
+    color: var(--green);
+    font-size: 1rem;
+    letter-spacing: 0.05em;
+  }
+  .nav-logo span { color: var(--muted); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.08em;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--green); }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 6rem 2rem 4rem;
+    overflow: hidden;
+  }
+
+  /* Grid background */
+  #hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,255,156,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,255,156,0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  /* Glow orb */
+  #hero::after {
+    content: '';
+    position: absolute;
+    top: 20%; left: 50%;
+    transform: translateX(-50%);
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(0,255,156,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    max-width: 1100px;
+    width: 100%;
+  }
+
+  .hero-text {}
+
+  .hero-label {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--green);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .hero-label::before {
+    content: '';
+    display: inline-block;
+    width: 24px; height: 1px;
+    background: var(--green);
+  }
+
+  .hero-name {
+    font-family: var(--mono);
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 400;
+    color: var(--text);
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+  }
+  .hero-name .accent { color: var(--green); }
+
+  .hero-title {
+    font-family: var(--mono);
+    font-size: 1rem;
+    color: var(--blue);
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.05em;
+  }
+
+  .hero-statement {
+    font-size: 1rem;
+    color: var(--muted);
+    line-height: 1.8;
+    max-width: 480px;
+    margin-bottom: 2rem;
+  }
+
+  .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+  .btn-primary {
+    padding: 0.7rem 1.6rem;
+    background: var(--green);
+    color: #000;
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 20px rgba(0,255,156,0.4);
+  }
+
+  .btn-secondary {
+    padding: 0.7rem 1.6rem;
+    background: transparent;
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  }
+  .btn-secondary:hover { border-color: var(--green); color: var(--green); }
+
+  /* Terminal card */
+  .hero-terminal {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 0 40px rgba(0,255,156,0.05), 0 20px 60px rgba(0,0,0,0.5);
+  }
+
+  .terminal-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.7rem 1rem;
+    background: #0D1526;
+    border-bottom: 1px solid var(--border);
+  }
+  .t-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .t-dot.r { background: #FF5F57; }
+  .t-dot.y { background: #FEBC2E; }
+  .t-dot.g { background: #28C840; }
+  .terminal-title { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); margin-left: auto; }
+
+  .terminal-body { padding: 1.2rem 1.4rem; font-family: var(--mono); font-size: 0.82rem; line-height: 1.9; }
+  .t-prompt { color: var(--green); }
+  .t-cmd { color: var(--text); }
+  .t-output { color: var(--muted); }
+  .t-val { color: var(--blue); }
+  .t-str { color: #FF8C69; }
+  .t-cursor {
+    display: inline-block;
+    width: 8px; height: 1em;
+    background: var(--green);
+    vertical-align: text-bottom;
+    animation: blink 1s step-end infinite;
+  }
+
+  @keyframes blink { 50% { opacity: 0; } }
+
+  /* ── SECTION BASE ── */
+  section { padding: 6rem 2rem; }
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+
+  .section-header { margin-bottom: 3rem; }
+  .section-eyebrow {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--green);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .section-eyebrow::after { content: ''; flex: 1; height: 1px; background: var(--border); max-width: 60px; }
+  .section-title { font-size: 2rem; font-weight: 700; color: var(--text); }
+
+  /* ── ABOUT / PHOTO ── */
+  #about { background: var(--bg2); }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .photo-frame {
+    position: relative;
+  }
+  .photo-frame::before {
+    content: '';
+    position: absolute;
+    inset: -6px;
+    border: 1px solid var(--green);
+    opacity: 0.3;
+    z-index: 0;
+  }
+  .photo-frame::after {
+    content: '';
+    position: absolute;
+    inset: -12px;
+    border: 1px solid var(--green);
+    opacity: 0.1;
+    z-index: 0;
+  }
+  .photo-placeholder {
+    width: 100%;
+    aspect-ratio: 3/4;
+    background: linear-gradient(135deg, #0F1629 0%, #1C2333 100%);
+    border: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    position: relative;
+    z-index: 1;
+  }
+  .photo-placeholder svg { opacity: 0.3; }
+  .photo-placeholder span { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); }
+
+  .about-content {}
+  .about-name { font-size: 1.8rem; font-weight: 700; margin-bottom: 0.3rem; }
+  .about-role { font-family: var(--mono); font-size: 0.85rem; color: var(--blue); margin-bottom: 1.5rem; }
+  .about-bio { color: var(--muted); line-height: 1.9; margin-bottom: 2rem; }
+
+  .about-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  .stat-box {
+    padding: 1rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-top: 2px solid var(--green);
+    text-align: center;
+  }
+  .stat-num { font-family: var(--mono); font-size: 1.6rem; color: var(--green); font-weight: 400; }
+  .stat-label { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 0.2rem; }
+
+  .skills-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .chip {
+    padding: 0.3rem 0.8rem;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .chip:hover { border-color: var(--green); color: var(--green); }
+  .chip.active { border-color: rgba(0,255,156,0.4); color: var(--green); background: rgba(0,255,156,0.05); }
+
+  /* ── EDUCATION ── */
+  #education {}
+  .edu-timeline { position: relative; padding-left: 2rem; }
+  .edu-timeline::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--green), transparent);
+  }
+
+  .edu-item {
+    position: relative;
+    padding: 1.5rem 0 2.5rem 1.5rem;
+  }
+  .edu-item::before {
+    content: '';
+    position: absolute;
+    left: -5px; top: 1.7rem;
+    width: 10px; height: 10px;
+    border: 2px solid var(--green);
+    background: var(--bg);
+    transform: rotate(45deg);
+  }
+
+  .edu-period { font-family: var(--mono); font-size: 0.72rem; color: var(--green); letter-spacing: 0.1em; margin-bottom: 0.4rem; }
+  .edu-degree { font-size: 1.1rem; font-weight: 600; color: var(--text); margin-bottom: 0.2rem; }
+  .edu-school { font-size: 0.9rem; color: var(--blue); margin-bottom: 0.8rem; }
+  .edu-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.7; max-width: 600px; }
+  .edu-modules { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.8rem; }
+  .module-tag {
+    padding: 0.2rem 0.6rem;
+    font-size: 0.7rem;
+    font-family: var(--mono);
+    background: rgba(10,132,255,0.1);
+    border: 1px solid rgba(10,132,255,0.2);
+    color: var(--blue);
+  }
+
+  /* ── PROJECTS ── */
+  #projects { background: var(--bg2); }
+  .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
+
+  .project-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.25s, transform 0.2s;
+    cursor: default;
+  }
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--green), var(--blue));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .project-card:hover { border-color: rgba(0,255,156,0.25); transform: translateY(-3px); }
+  .project-card:hover::before { transform: scaleX(1); }
+
+  .project-icon {
+    width: 40px; height: 40px;
+    background: rgba(0,255,156,0.08);
+    border: 1px solid rgba(0,255,156,0.2);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+  }
+  .project-name { font-size: 1rem; font-weight: 600; color: var(--text); margin-bottom: 0.4rem; }
+  .project-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.7; margin-bottom: 1rem; }
+  .project-stack { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.2rem; }
+  .stack-tag {
+    padding: 0.15rem 0.55rem;
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    background: rgba(139,92,246,0.1);
+    border: 1px solid rgba(139,92,246,0.2);
+    color: #A78BFA;
+  }
+  .project-links { display: flex; gap: 0.8rem; }
+  .project-link {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    transition: color 0.2s;
+    display: flex; align-items: center; gap: 0.3rem;
+  }
+  .project-link:hover { color: var(--green); }
+  .project-status {
+    position: absolute;
+    top: 1rem; right: 1rem;
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    padding: 0.15rem 0.5rem;
+    letter-spacing: 0.06em;
+  }
+  .status-live { background: rgba(0,255,156,0.1); color: var(--green); border: 1px solid rgba(0,255,156,0.25); }
+  .status-wip { background: rgba(254,188,46,0.1); color: #FEBC2E; border: 1px solid rgba(254,188,46,0.25); }
+
+  /* ── ACHIEVEMENTS ── */
+  #achievements {}
+  .ach-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.2rem; }
+
+  .ach-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 1.4rem;
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    transition: border-color 0.2s;
+  }
+  .ach-card:hover { border-color: rgba(0,255,156,0.2); }
+
+  .ach-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+    margin-top: 0.2rem;
+  }
+  .ach-year {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    color: var(--green);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.3rem;
+  }
+  .ach-title { font-size: 0.92rem; font-weight: 600; color: var(--text); margin-bottom: 0.3rem; }
+  .ach-body { font-size: 0.8rem; color: var(--muted); line-height: 1.6; }
+
+  /* ── CONTACT ── */
+  #contact { background: var(--bg2); }
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .contact-intro { font-size: 1rem; color: var(--muted); line-height: 1.8; margin-bottom: 2rem; }
+
+  .contact-links { display: flex; flex-direction: column; gap: 0.8rem; }
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.2rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    text-decoration: none;
+    color: var(--text);
+    transition: border-color 0.2s, transform 0.15s;
+  }
+  .contact-link:hover { border-color: var(--green); transform: translateX(4px); }
+  .contact-link-icon {
+    width: 36px; height: 36px;
+    background: rgba(0,255,156,0.08);
+    border: 1px solid rgba(0,255,156,0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; flex-shrink: 0;
+  }
+  .contact-link-text {}
+  .contact-link-label { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; }
+  .contact-link-value { font-size: 0.9rem; color: var(--text); }
+
+  /* Contact Form */
+  .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+  .form-label { font-family: var(--mono); font-size: 0.72rem; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; }
+  .form-input, .form-textarea {
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 0.75rem 1rem;
+    font-family: var(--sans);
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .form-input:focus, .form-textarea:focus { border-color: var(--green); }
+  .form-textarea { resize: vertical; min-height: 120px; }
+  .form-input::placeholder, .form-textarea::placeholder { color: var(--muted); opacity: 0.5; }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 2rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+  footer a { color: var(--green); text-decoration: none; }
+
+  /* ── CHATBOT ── */
+  .chat-fab {
+    position: fixed;
+    bottom: 2rem; right: 2rem;
+    width: 54px; height: 54px;
+    background: var(--green);
+    color: #000;
+    border: none;
+    cursor: pointer;
+    font-size: 1.3rem;
+    display: flex; align-items: center; justify-content: center;
+    z-index: 200;
+    clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+    box-shadow: 0 0 20px rgba(0,255,156,0.3);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .chat-fab:hover { transform: scale(1.05); box-shadow: 0 0 30px rgba(0,255,156,0.5); }
+
+  .chat-window {
+    position: fixed;
+    bottom: 6rem; right: 2rem;
+    width: 340px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    z-index: 200;
+    display: none;
+    flex-direction: column;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+    max-height: 480px;
+  }
+  .chat-window.open { display: flex; }
+
+  .chat-header {
+    padding: 0.8rem 1rem;
+    background: #0D1526;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .chat-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); animation: pulse 2s ease infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.8)} }
+  .chat-title { font-family: var(--mono); font-size: 0.8rem; color: var(--text); flex: 1; }
+  .chat-close { background: none; border: none; color: var(--muted); cursor: pointer; font-size: 1rem; padding: 0 0.2rem; }
+  .chat-close:hover { color: var(--text); }
+
+  .chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    min-height: 200px;
+  }
+  .chat-messages::-webkit-scrollbar { width: 4px; }
+  .chat-messages::-webkit-scrollbar-track { background: transparent; }
+  .chat-messages::-webkit-scrollbar-thumb { background: var(--border); }
+
+  .msg {
+    padding: 0.6rem 0.9rem;
+    font-size: 0.83rem;
+    line-height: 1.5;
+    max-width: 88%;
+    border-radius: 2px;
+  }
+  .msg.bot { background: rgba(0,255,156,0.08); border-left: 2px solid var(--green); color: var(--text); align-self: flex-start; }
+  .msg.user { background: rgba(10,132,255,0.12); border-right: 2px solid var(--blue); color: var(--text); align-self: flex-end; text-align: right; }
+  .msg.typing { color: var(--muted); font-family: var(--mono); font-size: 0.75rem; }
+
+  .chat-input-area {
+    border-top: 1px solid var(--border);
+    display: flex;
+    gap: 0;
+  }
+  .chat-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: var(--text);
+    padding: 0.75rem 1rem;
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    outline: none;
+  }
+  .chat-input::placeholder { color: var(--muted); opacity: 0.5; }
+  .chat-send {
+    padding: 0.75rem 1rem;
+    background: var(--green);
+    border: none;
+    color: #000;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: 0.05em;
+    transition: opacity 0.2s;
+  }
+  .chat-send:hover { opacity: 0.85; }
+
+  /* ── CV DOWNLOAD BANNER ── */
+  .cv-banner {
+    background: linear-gradient(135deg, rgba(0,255,156,0.06) 0%, rgba(10,132,255,0.06) 100%);
+    border: 1px solid rgba(0,255,156,0.15);
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-top: 3rem;
+    flex-wrap: wrap;
+  }
+  .cv-text {}
+  .cv-text h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.3rem; }
+  .cv-text p { font-size: 0.85rem; color: var(--muted); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .hero-inner { grid-template-columns: 1fr; }
+    .hero-terminal { display: none; }
+    .about-grid { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    .about-stats { grid-template-columns: repeat(3, 1fr); }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo"><span>~/</span>alex_cipher</div>
+  <ul class="nav-links">
+    <li><a href="#about">about</a></li>
+    <li><a href="#education">education</a></li>
+    <li><a href="#projects">projects</a></li>
+    <li><a href="#achievements">achievements</a></li>
+    <li><a href="#contact">contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-label">Cybersecurity Student</div>
+      <h1 class="hero-name">
+        <span class="accent">&gt;</span> Alex<br>Cipher_
+      </h1>
+      <div class="hero-title">[ Ethical Hacker · Security Researcher · Developer ]</div>
+      <p class="hero-statement">
+        Pursuing a degree in Cybersecurity with a passion for ethical hacking, network defense, and building tools that protect digital infrastructure. I break things to understand how to fix them.
+      </p>
+      <div class="hero-ctas">
+        <a href="#projects" class="btn-primary">VIEW PROJECTS</a>
+        <a href="#contact" class="btn-secondary">GET IN TOUCH</a>
+      </div>
+    </div>
+
+    <div class="hero-terminal">
+      <div class="terminal-bar">
+        <div class="t-dot r"></div>
+        <div class="t-dot y"></div>
+        <div class="t-dot g"></div>
+        <div class="terminal-title">profile.sh</div>
+      </div>
+      <div class="terminal-body">
+        <div><span class="t-prompt">$ </span><span class="t-cmd">whoami</span></div>
+        <div class="t-output">alex_cipher</div>
+        <br>
+        <div><span class="t-prompt">$ </span><span class="t-cmd">cat profile.json</span></div>
+        <div>{</div>
+        <div>&nbsp;&nbsp;<span class="t-val">"name"</span>: <span class="t-str">"Alex Cipher"</span>,</div>
+        <div>&nbsp;&nbsp;<span class="t-val">"role"</span>: <span class="t-str">"Cybersecurity Student"</span>,</div>
+        <div>&nbsp;&nbsp;<span class="t-val">"focus"</span>: [</div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="t-str">"Penetration Testing"</span>,</div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="t-str">"Network Security"</span>,</div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="t-str">"Malware Analysis"</span></div>
+        <div>&nbsp;&nbsp;],</div>
+        <div>&nbsp;&nbsp;<span class="t-val">"ctf_rank"</span>: <span class="t-str">"top 5%"</span>,</div>
+        <div>&nbsp;&nbsp;<span class="t-val">"status"</span>: <span class="t-str">"open_to_internships"</span></div>
+        <div>}</div>
+        <br>
+        <div><span class="t-prompt">$ </span><span class="t-cursor"></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-eyebrow">01 — About</div>
+      <h2 class="section-title">Who I Am</h2>
+    </div>
+    <div class="about-grid">
+      <div>
+        <div class="photo-frame">
+          <div class="photo-placeholder">
+            <!-- Replace this SVG with an <img> tag pointing to your photo -->
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="1">
+              <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+            </svg>
+            <span>[ your photo here ]</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-content">
+        <div class="about-name">Alex Cipher</div>
+        <div class="about-role">BSc (Hons) Cybersecurity · Year 2</div>
+        <p class="about-bio">
+          I'm a second-year Cybersecurity student with hands-on experience in penetration testing, vulnerability assessment, and security tool development. My curiosity for how systems are exploited drives me to constantly learn and experiment in controlled lab environments.<br><br>
+          Outside of coursework, I actively participate in Capture The Flag (CTF) competitions, contribute to open-source security tools, and hold an active TryHackMe top-5% ranking. I'm seeking internship opportunities where I can apply offensive security skills in a real-world environment.
+        </p>
+
+        <div class="about-stats">
+          <div class="stat-box">
+            <div class="stat-num">12+</div>
+            <div class="stat-label">CTF Wins</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num">8</div>
+            <div class="stat-label">Projects</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num">4</div>
+            <div class="stat-label">Certs</div>
+          </div>
+        </div>
+
+        <div class="skills-chips">
+          <span class="chip active">Kali Linux</span>
+          <span class="chip active">Metasploit</span>
+          <span class="chip active">Wireshark</span>
+          <span class="chip active">Burp Suite</span>
+          <span class="chip active">Python</span>
+          <span class="chip active">Nmap</span>
+          <span class="chip">Bash Scripting</span>
+          <span class="chip">Docker</span>
+          <span class="chip">OWASP Top 10</span>
+          <span class="chip">Linux</span>
+          <span class="chip">SQL Injection</span>
+          <span class="chip">XSS</span>
+          <span class="chip">Network Forensics</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-eyebrow">02 — Education</div>
+      <h2 class="section-title">Academic Background</h2>
+    </div>
+    <div class="edu-timeline">
+
+      <div class="edu-item">
+        <div class="edu-period">2023 — Present</div>
+        <div class="edu-degree">BSc (Hons) Cybersecurity & Ethical Hacking</div>
+        <div class="edu-school">Your University Name · Colombo, Sri Lanka</div>
+        <p class="edu-desc">Focused on offensive and defensive security, digital forensics, and secure software development. Maintaining a GPA of 3.7/4.0 with distinction in Network Security and Ethical Hacking modules.</p>
+        <div class="edu-modules">
+          <span class="module-tag">Network Security</span>
+          <span class="module-tag">Ethical Hacking</span>
+          <span class="module-tag">Digital Forensics</span>
+          <span class="module-tag">Cryptography</span>
+          <span class="module-tag">Secure Software Dev</span>
+          <span class="module-tag">Malware Analysis</span>
+        </div>
+      </div>
+
+      <div class="edu-item">
+        <div class="edu-period">2021 — 2023</div>
+        <div class="edu-degree">GCE Advanced Level — Mathematics Stream</div>
+        <div class="edu-school">Your School Name · Sri Lanka</div>
+        <p class="edu-desc">Combined Mathematics, Physics, and ICT. Achieved 3 A passes. School IT prefect and founding member of the Cybersecurity Club.</p>
+      </div>
+
+      <div class="edu-item">
+        <div class="edu-period">2020</div>
+        <div class="edu-degree">GCE Ordinary Level</div>
+        <div class="edu-school">Your School Name · Sri Lanka</div>
+        <p class="edu-desc">9 A passes including Mathematics, Science, and ICT. Received the Principal's Award for Academic Excellence.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-eyebrow">03 — Projects</div>
+      <h2 class="section-title">What I've Built</h2>
+    </div>
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <span class="project-status status-live">LIVE</span>
+        <div class="project-icon">🔍</div>
+        <div class="project-name">NetScan Pro</div>
+        <p class="project-desc">A custom Python-based network scanner that automates host discovery, port scanning, and service fingerprinting. Built on top of Scapy with a CLI dashboard.</p>
+        <div class="project-stack">
+          <span class="stack-tag">Python</span>
+          <span class="stack-tag">Scapy</span>
+          <span class="stack-tag">Socket</span>
+          <span class="stack-tag">CLI</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com" class="project-link" target="_blank">⬡ GitHub</a>
+          <a href="#" class="project-link">↗ Demo</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <span class="project-status status-live">LIVE</span>
+        <div class="project-icon">🛡️</div>
+        <div class="project-name">VulnHunter Web</div>
+        <p class="project-desc">An automated web vulnerability scanner targeting OWASP Top 10. Detects SQL injection, XSS, CSRF, and misconfigured headers. Features a clean HTML report output.</p>
+        <div class="project-stack">
+          <span class="stack-tag">Python</span>
+          <span class="stack-tag">Requests</span>
+          <span class="stack-tag">BeautifulSoup</span>
+          <span class="stack-tag">OWASP</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com" class="project-link" target="_blank">⬡ GitHub</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <span class="project-status status-wip">WIP</span>
+        <div class="project-icon">🔐</div>
+        <div class="project-name">CipherVault</div>
+        <p class="project-desc">A locally encrypted password manager with AES-256 encryption, master password PBKDF2 hashing, and an optional browser extension for auto-fill.</p>
+        <div class="project-stack">
+          <span class="stack-tag">Python</span>
+          <span class="stack-tag">AES-256</span>
+          <span class="stack-tag">PBKDF2</span>
+          <span class="stack-tag">SQLite</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com" class="project-link" target="_blank">⬡ GitHub</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <span class="project-status status-live">LIVE</span>
+        <div class="project-icon">📡</div>
+        <div class="project-name">PacketWatch</div>
+        <p class="project-desc">A real-time packet capture and analysis dashboard built with Scapy and Dash. Displays protocol breakdowns, suspicious traffic flags, and IP geolocation.</p>
+        <div class="project-stack">
+          <span class="stack-tag">Python</span>
+          <span class="stack-tag">Scapy</span>
+          <span class="stack-tag">Dash</span>
+          <span class="stack-tag">GeoIP</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com" class="project-link" target="_blank">⬡ GitHub</a>
+          <a href="#" class="project-link">↗ Demo</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <span class="project-status status-live">LIVE</span>
+        <div class="project-icon">🧪</div>
+        <div class="project-name">CTF Writeups Archive</div>
+        <p class="project-desc">A curated collection of 40+ detailed writeups from CTF competitions including PicoCTF, HackTheBox, and TryHackMe, organized by category and difficulty.</p>
+        <div class="project-stack">
+          <span class="stack-tag">Markdown</span>
+          <span class="stack-tag">CTF</span>
+          <span class="stack-tag">HackTheBox</span>
+          <span class="stack-tag">TryHackMe</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com" class="project-link" target="_blank">⬡ GitHub</a>
+          <a href="#" class="project-link">↗ Read</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <span class="project-status status-wip">WIP</span>
+        <div class="project-icon">🤖</div>
+        <div class="project-name">MalScan Lite</div>
+        <p class="project-desc">A static malware analysis sandbox that extracts strings, imports, and PE header metadata from executables and scores them against known IOC patterns.</p>
+        <div class="project-stack">
+          <span class="stack-tag">Python</span>
+          <span class="stack-tag">pefile</span>
+          <span class="stack-tag">YARA</span>
+          <span class="stack-tag">VirusTotal API</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com" class="project-link" target="_blank">⬡ GitHub</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section id="achievements">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-eyebrow">04 — Achievements</div>
+      <h2 class="section-title">Awards & Certifications</h2>
+    </div>
+    <div class="ach-grid">
+
+      <div class="ach-card">
+        <div class="ach-icon">🏆</div>
+        <div>
+          <div class="ach-year">2024</div>
+          <div class="ach-title">1st Place — National CTF Championship</div>
+          <p class="ach-body">Led a 3-person team to first place in the national university-level CTF, solving 18/20 challenges across web, binary, and forensics categories.</p>
+        </div>
+      </div>
+
+      <div class="ach-card">
+        <div class="ach-icon">📜</div>
+        <div>
+          <div class="ach-year">2024</div>
+          <div class="ach-title">CompTIA Security+</div>
+          <p class="ach-body">Passed the CompTIA Security+ (SY0-701) certification exam, validating foundational cybersecurity knowledge across threats, architecture, and compliance.</p>
+        </div>
+      </div>
+
+      <div class="ach-card">
+        <div class="ach-icon">🎯</div>
+        <div>
+          <div class="ach-year">2024</div>
+          <div class="ach-title">TryHackMe — Top 5% Global Ranking</div>
+          <p class="ach-body">Achieved a global top-5% ranking on TryHackMe with over 200 rooms completed, specializing in penetration testing and Active Directory attacks.</p>
+        </div>
+      </div>
+
+      <div class="ach-card">
+        <div class="ach-icon">📜</div>
+        <div>
+          <div class="ach-year">2023</div>
+          <div class="ach-title">Google Cybersecurity Certificate</div>
+          <p class="ach-body">Completed the Google Cybersecurity Professional Certificate on Coursera — 8 courses covering threat detection, SIEM tools, Python for security, and incident response.</p>
+        </div>
+      </div>
+
+      <div class="ach-card">
+        <div class="ach-icon">🔬</div>
+        <div>
+          <div class="ach-year">2023</div>
+          <div class="ach-title">Bug Bounty — 3 CVEs Reported</div>
+          <p class="ach-body">Responsibly disclosed 3 vulnerabilities via HackerOne to a mid-size SaaS company, earning Hall of Fame recognition and a bounty award.</p>
+        </div>
+      </div>
+
+      <div class="ach-card">
+        <div class="ach-icon">🎓</div>
+        <div>
+          <div class="ach-year">2023</div>
+          <div class="ach-title">Dean's List — Academic Excellence</div>
+          <p class="ach-body">Recognized on the Dean's List for achieving a GPA of 3.7+ during the first year of the degree program.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CV Download Banner -->
+    <div class="cv-banner">
+      <div class="cv-text">
+        <h3>Download My CV / Resume</h3>
+        <p>Full academic record, project details, and references available in PDF format.</p>
+      </div>
+      <a href="cv.pdf" download class="btn-primary">↓ DOWNLOAD CV</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-eyebrow">05 — Contact</div>
+      <h2 class="section-title">Get In Touch</h2>
+    </div>
+    <div class="contact-grid">
+      <div>
+        <p class="contact-intro">
+          I'm open to internship opportunities, research collaborations, and CTF team invitations. Whether you want to talk security, share a challenge, or discuss a project — reach out.
+        </p>
+        <div class="contact-links">
+          <a href="mailto:alex@example.com" class="contact-link">
+            <div class="contact-link-icon">✉</div>
+            <div class="contact-link-text">
+              <div class="contact-link-label">Email</div>
+              <div class="contact-link-value">alex@example.com</div>
+            </div>
+          </a>
+          <a href="https://github.com/alexcipher" target="_blank" class="contact-link">
+            <div class="contact-link-icon">⬡</div>
+            <div class="contact-link-text">
+              <div class="contact-link-label">GitHub</div>
+              <div class="contact-link-value">github.com/alexcipher</div>
+            </div>
+          </a>
+          <a href="https://linkedin.com/in/alexcipher" target="_blank" class="contact-link">
+            <div class="contact-link-icon">in</div>
+            <div class="contact-link-text">
+              <div class="contact-link-label">LinkedIn</div>
+              <div class="contact-link-value">linkedin.com/in/alexcipher</div>
+            </div>
+          </a>
+          <a href="https://tryhackme.com/p/alexcipher" target="_blank" class="contact-link">
+            <div class="contact-link-icon">⚑</div>
+            <div class="contact-link-text">
+              <div class="contact-link-label">TryHackMe</div>
+              <div class="contact-link-value">tryhackme.com/p/alexcipher</div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div>
+        <div class="contact-form">
+          <div class="form-group">
+            <label class="form-label">Name</label>
+            <input type="text" class="form-input" placeholder="Your name">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-input" placeholder="your@email.com">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Message</label>
+            <textarea class="form-textarea" placeholder="What's on your mind?"></textarea>
+          </div>
+          <button class="btn-primary" style="align-self:flex-start; border:none; cursor:pointer;">SEND MESSAGE</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2025 Alex Cipher — All rights reserved</span>
+  <span>Built with ❤️ & too many CTF nights</span>
+  <a href="https://github.com/alexcipher" target="_blank">github.com/alexcipher</a>
+</footer>
+
+<!-- AI CHATBOT -->
+<button class="chat-fab" onclick="toggleChat()" title="Ask my AI assistant">💬</button>
+
+<div class="chat-window" id="chatWindow">
+  <div class="chat-header">
+    <div class="chat-dot"></div>
+    <div class="chat-title">Alex's AI Assistant</div>
+    <button class="chat-close" onclick="toggleChat()">✕</button>
+  </div>
+  <div class="chat-messages" id="chatMessages">
+    <div class="msg bot">Hey! I'm Alex's AI assistant. Ask me anything about his skills, projects, or background. 👋</div>
+  </div>
+  <div class="chat-input-area">
+    <input type="text" class="chat-input" id="chatInput" placeholder="Ask something..." onkeydown="if(event.key==='Enter') sendMsg()">
+    <button class="chat-send" onclick="sendMsg()">SEND</button>
+  </div>
+</div>
+
+<script>
+function toggleChat() {
+  const w = document.getElementById('chatWindow');
+  w.classList.toggle('open');
+}
+
+async function sendMsg() {
+  const input = document.getElementById('chatInput');
+  const msg = input.value.trim();
+  if (!msg) return;
+  input.value = '';
+
+  const msgs = document.getElementById('chatMessages');
+
+  // User message
+  const userDiv = document.createElement('div');
+  userDiv.className = 'msg user';
+  userDiv.textContent = msg;
+  msgs.appendChild(userDiv);
+
+  // Typing indicator
+  const typing = document.createElement('div');
+  typing.className = 'msg bot typing';
+  typing.textContent = 'thinking...';
+  msgs.appendChild(typing);
+  msgs.scrollTop = msgs.scrollHeight;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 1000,
+        system: `You are a helpful AI assistant embedded in Alex Cipher's cybersecurity portfolio website. Answer questions about Alex concisely and helpfully.
+
+Here's what you know about Alex:
+- Name: Alex Cipher
+- Degree: BSc (Hons) Cybersecurity & Ethical Hacking, Year 2, GPA 3.7/4.0
+- Skills: Kali Linux, Metasploit, Wireshark, Burp Suite, Python, Nmap, Bash, Docker, OWASP Top 10
+- Projects: NetScan Pro (network scanner), VulnHunter Web (web vuln scanner), CipherVault (password manager), PacketWatch (packet analysis), CTF Writeups Archive, MalScan Lite
+- Achievements: 1st Place National CTF, CompTIA Security+, TryHackMe Top 5%, Google Cybersecurity Certificate, 3 CVEs via bug bounty, Dean's List
+- Contact: alex@example.com, github.com/alexcipher, linkedin.com/in/alexcipher
+- Open to: internships, CTF teams, research collaboration
+Keep responses brief (2-4 sentences max). Be friendly and professional.`,
+        messages: [{ role: 'user', content: msg }]
+      })
+    });
+    const data = await res.json();
+    typing.remove();
+    const botDiv = document.createElement('div');
+    botDiv.className = 'msg bot';
+    botDiv.textContent = data.content?.[0]?.text || 'Sorry, I had trouble responding. Try again!';
+    msgs.appendChild(botDiv);
+  } catch (e) {
+    typing.textContent = 'Sorry, something went wrong. Try again!';
+  }
+  msgs.scrollTop = msgs.scrollHeight;
+}
+</script>
+
+</body>
+</html>
