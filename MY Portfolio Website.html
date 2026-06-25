@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SDS Mewan | Cybersecurity Portfolio</title>
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap"
+        rel="stylesheet" />
+
+    <style>
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a0e17;
+            color: #e2e8f0;
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 40px;
+            position: relative;
+            display: inline-block;
+            color: #00ff41;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: #00ff41;
+            border-radius: 4px;
+            box-shadow: 0 0 20px #00ff41;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .btn-primary {
+            background: #00ff41;
+            color: #0a0e17;
+        }
+
+        .btn-primary:hover {
+            background: #00cc33;
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px rgba(0, 255, 65, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: #00ff41;
+            border: 2px solid #00ff41;
+        }
+
+        .btn-outline:hover {
+            background: #00ff41;
+            color: #0a0e17;
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px rgba(0, 255, 65, 0.2);
+        }
+
+        /* ===== GLOW EFFECTS ===== */
+        .glow-text {
+            text-shadow: 0 0 40px rgba(0, 255, 65, 0.3);
+        }
+
+        /* ===== HEADER / NAV ===== */
+        header {
+            background: rgba(10, 14, 23, 0.95);
+            border-bottom: 1px solid rgba(0, 255, 65, 0.15);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 16px 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #00ff41;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .logo span {
+            color: #e2e8f0;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .nav-links a {
+            transition: color 0.3s;
+            color: #94a3b8;
+        }
+
+        .nav-links a:hover {
+            color: #00ff41;
+        }
+
+        .hamburger {
+            display: none;
+            font-size: 1.6rem;
+            cursor: pointer;
+            color: #00ff41;
+        }
+
+        /* ===== HERO ===== */
+        #hero {
+            padding: 80px 0 100px;
+            background: radial-gradient(ellipse at 30% 50%, rgba(0, 255, 65, 0.05) 0%, transparent 70%);
+            border-bottom: 1px solid rgba(0, 255, 65, 0.08);
+        }
+
+        .hero-grid {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+            flex-wrap: wrap;
+        }
+
+        .hero-text {
+            flex: 1;
+            min-width: 280px;
+        }
+
+        .hero-text .badge {
+            background: rgba(0, 255, 65, 0.12);
+            color: #00ff41;
+            padding: 6px 18px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin-bottom: 16px;
+            font-family: 'JetBrains Mono', monospace;
+            border: 1px solid rgba(0, 255, 65, 0.2);
+        }
+
+        .hero-text h1 {
+            font-size: 3.2rem;
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 16px;
+        }
+
+        .hero-text h1 .highlight {
+            color: #00ff41;
+            text-shadow: 0 0 40px rgba(0, 255, 65, 0.2);
+        }
+
+        .hero-text .subtitle {
+            font-size: 1.1rem;
+            color: #94a3b8;
+            max-width: 500px;
+            margin-bottom: 8px;
+        }
+
+        .hero-text .subtitle strong {
+            color: #00ff41;
+        }
+
+        .hero-text .typing-line {
+            color: #64748b;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+            margin-bottom: 28px;
+        }
+
+        .hero-text .typing-line .cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1.2rem;
+            background: #00ff41;
+            animation: blink 1s step-end infinite;
+            vertical-align: text-bottom;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0;
+            }
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .hero-image {
+            flex: 1;
+            min-width: 240px;
+            text-align: center;
+        }
+
+        .hero-image .avatar-ring {
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            padding: 6px;
+            background: linear-gradient(135deg, #00ff41, #0066ff, #00ff41);
+            background-size: 300% 300%;
+            animation: gradientRotate 4s ease infinite;
+            margin: 0 auto;
+            box-shadow: 0 0 60px rgba(0, 255, 65, 0.15);
+        }
+
+        @keyframes gradientRotate {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .avatar-ring .avatar-inner {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: #0a0e17;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            font-weight: 700;
+            color: #00ff41;
+            font-family: 'JetBrains Mono', monospace;
+            overflow: hidden;
+        }
+
+        .avatar-ring .avatar-inner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* ===== ABOUT / STATEMENT ===== */
+        #about {
+            background: #0d111c;
+            border-bottom: 1px solid rgba(0, 255, 65, 0.06);
+        }
+
+        .about-content {
+            max-width: 800px;
+        }
+
+        .about-content p {
+            font-size: 1.1rem;
+            color: #cbd5e1;
+            margin-bottom: 16px;
+        }
+
+        .about-content .highlight {
+            color: #00ff41;
+        }
+
+        .about-stats {
+            display: flex;
+            gap: 40px;
+            margin-top: 32px;
+            flex-wrap: wrap;
+        }
+
+        .about-stats .stat {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .about-stats .stat .number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #00ff41;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .about-stats .stat .label {
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+
+        /* ===== EDUCATION ===== */
+        #education {
+            background: #0a0e17;
+            border-bottom: 1px solid rgba(0, 255, 65, 0.06);
+        }
+
+        .edu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .edu-card {
+            background: #0d111c;
+            padding: 28px;
+            border-radius: 8px;
+            border-left: 4px solid #00ff41;
+            border: 1px solid rgba(0, 255, 65, 0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .edu-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 40px rgba(0, 255, 65, 0.06);
+            border-color: rgba(0, 255, 65, 0.2);
+        }
+
+        .edu-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 4px;
+            color: #00ff41;
+        }
+
+        .edu-card .institution {
+            font-weight: 600;
+            color: #94a3b8;
+            margin-bottom: 4px;
+        }
+
+        .edu-card .year {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        .edu-card .courses {
+            margin-top: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .edu-card .courses span {
+            background: rgba(0, 255, 65, 0.08);
+            color: #00ff41;
+            padding: 2px 12px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-family: 'JetBrains Mono', monospace;
+            border: 1px solid rgba(0, 255, 65, 0.1);
+        }
+
+        /* ===== PROJECTS ===== */
+        #projects {
+            background: #0d111c;
+            border-bottom: 1px solid rgba(0, 255, 65, 0.06);
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            background: #0a0e17;
+            border-radius: 8px;
+            padding: 28px;
+            border: 1px solid rgba(0, 255, 65, 0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 40px rgba(0, 255, 65, 0.05);
+            border-color: rgba(0, 255, 65, 0.2);
+        }
+
+        .project-card .icon {
+            font-size: 2.2rem;
+            color: #00ff41;
+            margin-bottom: 12px;
+        }
+
+        .project-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            color: #e2e8f0;
+        }
+
+        .project-card p {
+            color: #94a3b8;
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+        }
+
+        .project-card .tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .project-card .tech span {
+            background: rgba(0, 255, 65, 0.08);
+            color: #00ff41;
+            padding: 4px 14px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            font-family: 'JetBrains Mono', monospace;
+            border: 1px solid rgba(0, 255, 65, 0.1);
+        }
+
+        /* ===== CONTACT ===== */
+        #contact {
+            background: #0d111c;
+            border-bottom: 1px solid rgba(0, 255, 65, 0.06);
+        }
+
+        .contact-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            align-items: flex-start;
+        }
+
+        .contact-info {
+            flex: 1;
+            min-width: 240px;
+        }
+
+        .contact-info p {
+            color: #94a3b8;
+            margin-bottom: 24px;
+        }
+
+        .contact-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .contact-links a {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #0a0e17;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: all 0.3s;
+            color: #94a3b8;
+            border: 1px solid rgba(0, 255, 65, 0.08);
+        }
+
+        .contact-links a:hover {
+            background: rgba(0, 255, 65, 0.08);
+            color: #00ff41;
+            transform: translateY(-2px);
+            border-color: #00ff41;
+            box-shadow: 0 0 30px rgba(0, 255, 65, 0.05);
+        }
+
+        .contact-links a i {
+            font-size: 1.2rem;
+            color: #00ff41;
+        }
+
+        .bonus-section {
+            flex: 1;
+            min-width: 240px;
+            background: #0a0e17;
+            padding: 32px;
+            border-radius: 8px;
+            border: 1px solid rgba(0, 255, 65, 0.08);
+        }
+
+        .bonus-section h3 {
+            font-size: 1.2rem;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #00ff41;
+        }
+
+        .bonus-section .btn {
+            width: 100%;
+            text-align: center;
+        }
+
+        /* ===== CHAT BOT (Bonus) ===== */
+        .chat-container {
+            margin-top: 16px;
+        }
+
+        .chat-box {
+            background: #0d111c;
+            border-radius: 6px;
+            padding: 16px;
+            max-height: 180px;
+            overflow-y: auto;
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(0, 255, 65, 0.08);
+            min-height: 80px;
+        }
+
+        .chat-box::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .chat-box::-webkit-scrollbar-track {
+            background: #0a0e17;
+        }
+
+        .chat-box::-webkit-scrollbar-thumb {
+            background: #00ff41;
+            border-radius: 4px;
+        }
+
+        .chat-box .bot-msg {
+            background: rgba(0, 255, 65, 0.08);
+            color: #00ff41;
+            padding: 10px 14px;
+            border-radius: 6px 6px 6px 4px;
+            margin-bottom: 8px;
+            display: inline-block;
+            border-left: 2px solid #00ff41;
+            max-width: 85%;
+        }
+
+        .chat-box .user-msg {
+            background: rgba(255, 255, 255, 0.05);
+            color: #e2e8f0;
+            padding: 10px 14px;
+            border-radius: 6px 6px 4px 6px;
+            margin-bottom: 8px;
+            text-align: right;
+            display: inline-block;
+            float: right;
+            clear: both;
+            max-width: 85%;
+            border-right: 2px solid #00ff41;
+        }
+
+        .chat-box::after {
+            content: '';
+            display: table;
+            clear: both;
+        }
+
+        .chat-input-group {
+            display: flex;
+            gap: 8px;
+        }
+
+        .chat-input-group input {
+            flex: 1;
+            padding: 10px 16px;
+            border: 1px solid rgba(0, 255, 65, 0.15);
+            border-radius: 6px;
+            font-size: 0.9rem;
+            outline: none;
+            transition: border 0.3s;
+            background: #0d111c;
+            color: #e2e8f0;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .chat-input-group input:focus {
+            border-color: #00ff41;
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.05);
+        }
+
+        .chat-input-group input::placeholder {
+            color: #475569;
+        }
+
+        .chat-input-group button {
+            background: #00ff41;
+            color: #0a0e17;
+            border: none;
+            border-radius: 6px;
+            padding: 10px 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .chat-input-group button:hover {
+            background: #00cc33;
+            box-shadow: 0 0 30px rgba(0, 255, 65, 0.2);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: #060a11;
+            color: #64748b;
+            text-align: center;
+            padding: 32px 0;
+            border-top: 1px solid rgba(0, 255, 65, 0.06);
+        }
+
+        footer .highlight {
+            color: #00ff41;
+        }
+
+        footer .heart {
+            color: #ff4444;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                gap: 16px;
+                background: #0a0e17;
+                padding: 24px;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                right: 0;
+                border-bottom: 1px solid rgba(0, 255, 65, 0.1);
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .hero-text h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero-grid {
+                flex-direction: column-reverse;
+                text-align: center;
+            }
+
+            .hero-text p {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .section-title::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .section-title {
+                display: block;
+                text-align: center;
+            }
+
+            .about-content {
+                text-align: center;
+            }
+
+            .about-stats {
+                justify-content: center;
+            }
+
+            .contact-content {
+                flex-direction: column;
+            }
+
+            .hero-image .avatar-ring {
+                width: 200px;
+                height: 200px;
+            }
+
+            .hero-image .avatar-ring .avatar-inner {
+                font-size: 3.5rem;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .nav-links {
+                display: flex !important;
+            }
+        }
+
+        /* ===== TERMINAL THEME ===== */
+        .terminal-border {
+            border: 1px solid rgba(0, 255, 65, 0.1);
+        }
+
+        .text-cyber {
+            color: #00ff41;
+        }
+
+        .bg-cyber-dark {
+            background: #0a0e17;
+        }
+
+        .bg-cyber-card {
+            background: #0d111c;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ===== HEADER ===== -->
+    <header>
+        <div class="container nav">
+            <div class="logo">&lt;<span>Cyber</span>Sec&gt;</div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#about">/about</a></li>
+                <li><a href="#education">/education</a></li>
+                <li><a href="#projects">/projects</a></li>
+                <li><a href="#contact">/contact</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger" onclick="toggleNav()">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== HERO ===== -->
+    <section id="hero">
+        <div class="container hero-grid">
+            <div class="hero-text">
+                <div class="badge">$ sudo whoami</div>
+                <h1>
+                    <span class="highlight">SDS Mewan</span><br />
+                    <span style="font-size: 1.8rem;">Cybersecurity Student</span>
+                </h1>
+                <p class="subtitle">
+                    <strong>Securing</strong> the digital frontier · Ethical Hacking · Network Defense · Threat
+                    Intelligence
+                </p>
+                <p class="typing-line">
+                    <span id="typedText">>_ Protecting systems, one vulnerability at a time</span>
+                    <span class="cursor"></span>
+                </p>
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn btn-primary">$ connect</a>
+                    <a href="#projects" class="btn btn-outline">$ view_projects</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="avatar-ring">
+                    <div class="avatar-inner">
+                        <img src="IMG_20260625_101929.jpg" alt="Alex Rivera" />
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== ABOUT / STATEMENT ===== -->
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title">/whoami</h2>
+            <div class="about-content">
+                <p>
+                    I'm <span class="highlight">SDS Mewan</span>, a first-year Cybersecurity student at the
+                    sri lanka technology campus with a passion for <span class="highlight">ethical hacking</span>,
+                    <span class="highlight">penetration testing</span>, and <span class="highlight">network
+                        security</span>.
+                </p>
+                <p>
+                    I'm driven by the challenge of finding vulnerabilities before malicious actors do.
+                    I specialize in <span class="highlight">web application security</span>,
+                    <span class="highlight">digital forensics</span>, and <span class="highlight">building secure
+                        systems </span>
+                    from the ground up.
+                </p>
+                <p>
+                    my primary goal of a <span class="highlight">Security Architect</span> is to protect an enterprise's
+                    critical assets by designing and implementing robust, secure, and integrated IT infrastructures.
+
+                </p>
+                <div class="about-stats">
+                    <div class="stat">
+                        <span class="number">50+</span>
+                        <span class="label">CTF Challenges Solved</span>
+                    </div>
+                    <div class="stat">
+                        <span class="number">12</span>
+                        <span class="label">Vulnerabilities Discovered</span>
+                    </div>
+                    <div class="stat">
+                        <span class="number">3</span>
+                        <span class="label">Security Certifications</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== EDUCATION ===== -->
+    <section id="education">
+        <div class="container">
+            <h2 class="section-title">/education</h2>
+            <div class="edu-grid">
+                <div class="edu-card">
+                    <h3>BSc (Hons) in Cyber Security</h3>
+                    <div class="institution">Sri Lanka Technology Campus</div>
+                    <div class="year">2025 – Present</div>
+                    <div class="courses">
+                        <span>Network Security</span>
+                        <span>Cryptography</span>
+                        <span>Digital Forensics</span>
+                        <span>Web Security</span>
+                        <span>Cloud Security</span>
+                        <span>Penetration Testing</span>
+                    </div>
+                </div>
+                <div class="edu-card">
+                    <h3>Cybersecurity Architect Expert</h3>
+                    <div class="institution">Microsoft Certified</div>
+                    <div class="year">2026 – Present</div>
+                    <div class="courses">
+                        <span>Design Security Operations</span>
+                        <span> Security Solutions for Infrastructure</span>
+                    </div>
+                </div>
+                <div class="edu-card">
+                    <h3>Cybersecurity Analyst Professional Certificate</h3>
+                    <div class="institution">IBM</div>
+                    <div class="year">2026 – Present</div>
+                    <div class="courses">
+                        <span>Email Security</span>
+                        <span>Cyber Threat Hunting</span>
+                        <span>Digital Forensics</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PROJECTS ===== -->
+    <section id="projects">
+        <div class="container">
+            <h2 class="section-title">/projects</h2>
+            <div class="project-grid">
+                <div class="project-card">
+                    <div class="icon"><i class="fas fa-shield-halved"></i></div>
+                    <h3>Student Record Management System</h3>
+                    <p>
+                        A Student Record Management System (SRMS)
+                        is a digital platform that automates the tracking, storage,
+                        and retrieval of student data.
+                    </p>
+                    <div class="tech">
+                        <span>Python</span>
+                        <span>tkinter</span>
+                        <span>CSV</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <div class="container">
+            <h2 class="section-title">/further projects</h2>
+            <div class="project-grid">
+                <div class="project-card">
+                    <div class="icon"><i class="fas fa-shield-halved"></i></div>
+                    <h3>VulnScan Pro</h3>
+                    <p>
+                        Automated vulnerability scanner for web applications.
+                        Detects OWASP Top 10 vulnerabilities including SQLi, XSS, and CSRF.
+                    </p>
+                    <div class="tech">
+                        <span>Python</span>
+                        <span>Requests</span>
+                        <span>BeautifulSoup</span>
+                        <span>OWASP</span>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="icon"><i class="fas fa-network-wired"></i></div>
+                    <h3>NetGuard IDS</h3>
+                    <p>
+                        Intrusion Detection System with real-time packet monitoring
+                        and alerting. Uses machine learning for anomaly detection.
+                    </p>
+                    <div class="tech">
+                        <span>Python</span>
+                        <span>Scapy</span>
+                        <span>TensorFlow</span>
+                        <span>Wireshark</span>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="icon"><i class="fas fa-lock"></i></div>
+                    <h3>SecureChat</h3>
+                    <p>
+                        End-to-end encrypted messaging app with forward secrecy.
+                        Built with AES-256 encryption and Diffie-Hellman key exchange.
+                    </p>
+                    <div class="tech">
+                        <span>React</span>
+                        <span>Node.js</span>
+                        <span>Crypto</span>
+                        <span>WebRTC</span>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="icon"><i class="fas fa-fingerprint"></i></div>
+                    <h3>PhishGuard</h3>
+                    <p>
+                        Browser extension that detects and blocks phishing websites
+                        using AI-powered URL analysis and domain reputation scoring.
+                    </p>
+                    <div class="tech">
+                        <span>JavaScript</span>
+                        <span>ML</span>
+                        <span>Chrome API</span>
+                        <span>DNS</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CONTACT + BONUS ===== -->
+    <section id="contact">
+        <div class="container">
+            <h2 class="section-title">/contact</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <p>
+                        Interested in cybersecurity collaboration, penetration testing,
+                        or just want to connect? Reach out through any channel below.
+                    </p>
+                    <div class="contact-links">
+                        <a href="https://github.com/SDSMewan" target="_blank">
+                            <i class="fab fa-github"></i> GitHub
+                        </a>
+                        <a href="https://www.linkedin.com/in/sds-mewan-228b163b1/" target="_blank">
+                            <i class="fab fa-linkedin-in"></i> LinkedIn
+                        </a>
+                        <a href="https://tryhackme.com/p/mewansds" target="_blank">
+                            <i class="fas fa-user-secret"></i> TryHackMe
+                        </a>
+                        <a href="mailto:mewansds@gmail.com?subject=Project%20Inquiry">
+                            <i class="fas fa-envelope"></i> Email
+                        </a>
+                        <!-- CV Download -->
+                        <a href="#" target="_blank">
+                            <i class=" fas fa-download"></i> Download CV (PDF)
+                        </a>
+                    </div>
+                </div>
+
+                <!-- BONUS SECTION -->
+                <div class="bonus-section">
+                    <!-- AI Chatbot -->
+                    <div class="chat-container">
+                        <p style="font-weight:600; font-size:0.9rem; margin-bottom:8px; color:#94a3b8;">
+                            <i class="fas fa-robot" style="color:#00ff41;"></i> Cyber Assistant
+                        </p>
+                        <div class="chat-box" id="chatBox">
+                            <div class="bot-msg">🔒 Hello! Ask me about Mewan's cybersecurity background.</div>
+                        </div>
+                        <div class="chat-input-group">
+                            <input type="text" id="chatInput" placeholder="Ask about skills, certs, projects..." />
+                            <button id="sendChatBtn">Send</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <div class="container">
+            <p>
+                &copy; 2026 <span class="highlight">SDS Mewan</span> ·
+                <i class="fas fa-shield-halved" style="color:#00ff41;"></i>
+            </p>
+        </div>
+    </footer>
+
+    <!-- ===== JAVASCRIPT ===== -->
+    <script>
+        // === Mobile Nav ===
+        function toggleNav() {
+            document.getElementById('navLinks').classList.toggle('open');
+        }
+
+        // === Typing Effect ===
+        const typedText = document.getElementById('typedText');
+        const phrases = [
+            '>_ Protecting systems, one vulnerability at a time',
+            '>_ Ethical hacking · Network defense · Threat intel',
+            '>_ Security isn\'t a product, it\'s a process',
+            '>_ Breaking things to make them stronger'
+        ];
+        let phraseIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+
+        function typeEffect() {
+            const currentPhrase = phrases[phraseIndex];
+            if (!isDeleting) {
+                typedText.textContent = currentPhrase.substring(0, charIndex + 1);
+                charIndex++;
+                if (charIndex === currentPhrase.length) {
+                    isDeleting = true;
+                    setTimeout(typeEffect, 3000);
+                    return;
+                }
+                setTimeout(typeEffect, 50);
+            } else {
+                typedText.textContent = currentPhrase.substring(0, charIndex - 1);
+                charIndex--;
+                if (charIndex === 0) {
+                    isDeleting = false;
+                    phraseIndex = (phraseIndex + 1) % phrases.length;
+                    setTimeout(typeEffect, 500);
+                    return;
+                }
+                setTimeout(typeEffect, 30);
+            }
+        }
+        typeEffect();
+
+        // === AI Chatbot ===
+        const chatBox = document.getElementById('chatBox');
+        const chatInput = document.getElementById('chatInput');
+        const sendBtn = document.getElementById('sendChatBtn');
+
+        const cyberKnowledge = {
+            'name': 'Alex Rivera',
+            'role': 'Cybersecurity Student',
+            'university': 'University of Technology',
+            'certifications': 'CompTIA Security+, CEH (in progress)',
+            'skills': 'Penetration Testing, Network Security, Digital Forensics, Web Security, Python, Linux, Wireshark, Burp Suite, Metasploit, Nmap, SQL Injection, XSS, CSRF, Cryptography, Cloud Security, Incident Response, Threat Intelligence, IDS/IPS, Firewalls, SIEM, Vulnerability Assessment, OWASP Top 10, MITRE ATT&CK',
+            'projects': 'VulnScan Pro (vulnerability scanner), NetGuard IDS (intrusion detection), SecureChat (encrypted messaging), PhishGuard (phishing detection)',
+            'achievements': 'CyberCTF Champion (1st Place), Google Security Scholarship 2024, CompTIA Security+ certified, Bug Bounty Hunter with 5+ disclosures, Top 5% on TryHackMe',
+            'interests': 'Red teaming, zero-day research, malware analysis, security automation, cloud security',
+            'contact': 'GitHub: github.com/yourusername, LinkedIn: linkedin.com/in/yourusername, TryHackMe: tryhackme.com/yourusername'
+        };
+
+        function getBotReply(msg) {
+            const m = msg.toLowerCase();
+            if (m.includes('name') || m.includes('who')) return `I'm ${cyberKnowledge.name}, a ${cyberKnowledge.role}.`;
+            if (m.includes('role') || m.includes('do you do') || m.includes('student')) return `I'm a ${cyberKnowledge.role} at ${cyberKnowledge.university}.`;
+            if (m.includes('university') || m.includes('study') || m.includes('college') || m.includes('school')) return `I study at ${cyberKnowledge.university}.`;
+            if (m.includes('cert') || m.includes('certification') || m.includes('qualified')) return `My certifications include: ${cyberKnowledge.certifications}.`;
+            if (m.includes('skill') || m.includes('know') || m.includes('expertise') || m.includes('tools')) return `My core skills: ${cyberKnowledge.skills}. I'm proficient with tools like Nmap, Wireshark, Burp Suite, and Metasploit.`;
+            if (m.includes('project') || m.includes('build') || m.includes('made') || m.includes('create')) return `My projects: ${cyberKnowledge.projects}.`;
+            if (m.includes('achieve') || m.includes('award') || m.includes('winner') || m.includes('certified')) return `Achievements: ${cyberKnowledge.achievements}.`;
+            if (m.includes('interest') || m.includes('passion') || m.includes('like doing') || m.includes('enjoy')) return `I'm passionate about ${cyberKnowledge.interests}.`;
+            if (m.includes('contact') || m.includes('reach') || m.includes('connect') || m.includes('find you')) return `You can reach me via ${cyberKnowledge.contact}.`;
+            if (m.includes('hello') || m.includes('hi') || m.includes('hey') || m.includes('yo')) return 'Hello! I\'m here to help you learn more about Alex. Ask about skills, certifications, or projects!';
+            if (m.includes('how are you')) return 'I\'m secure and operational! Ready to assist.';
+            if (m.includes('thank')) return 'You\'re welcome! Stay secure! 🔒';
+            return `I don't have that information specifically. I recommend checking Alex's GitHub or LinkedIn for more details. Is there something specific about cybersecurity you'd like to know?`;
+        }
+
+        function addMessage(text, sender) {
+            const div = document.createElement('div');
+            div.className = sender === 'bot' ? 'bot-msg' : 'user-msg';
+            div.textContent = text;
+            chatBox.appendChild(div);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        function handleSend() {
+            const userMsg = chatInput.value.trim();
+            if (!userMsg) return;
+            addMessage(userMsg, 'user');
+            chatInput.value = '';
+            setTimeout(() => {
+                addMessage(getBotReply(userMsg), 'bot');
+            }, 400);
+        }
+
+        sendBtn.addEventListener('click', handleSend);
+        chatInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') handleSend();
+        });
+
+        // Welcome message
+        setTimeout(() => {
+            addMessage('🔐 Hi! Ask me about Mewan\'s cybersecurity skills, certifications, or projects.', 'bot');
+        }, 800);
+    </script>
+
+</body>
+
+</html>
